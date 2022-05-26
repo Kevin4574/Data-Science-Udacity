@@ -18,4 +18,5 @@ The library used projetc are: pandas, time , skearn, matplotlib.
 For a quick conclusion, as we dig into data we find that the the top importance elements contribute to a higher price tag are : 'room_type','bedrooms','beds','accommodates' and 'cleaning_fee'. This is easy to understand, bigger long more beds higher the price and more cleaning_fee. Beside this we also find that the customer satisfaction actually do not relate to higer price.
 
 As a suggest for new host: if your want to sale for place for higher price tag, then try well manage your place and make full use of the space(for example: try managing and make the place bigger to fill more room or bed, but at the same time make less sacrifice on the experience), because this is the quick way to rise your property's price tag.
+For more detail about this project please visit my medium post at: https://medium.com/@yezehua1234/what-effect-your-price-tag-as-a-airbnb-host-49bfa3dff89e
 
