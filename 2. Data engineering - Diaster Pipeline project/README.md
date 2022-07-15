@@ -1,7 +1,14 @@
 # Data Science Udacity - Disaster Response Pipeline
-## Project Summary
-The goal for this project is to create a web app that have the ability to predict Disaster base on the input message.
+## Contents
+- project
+- ETL and ML Pipeline notebook - contain two notebook with detailed approach for ETL and ML pipeline
+- screen-shot - contain screen shots used in README.md
+- README.md
 
+## Project Summary
+#### The goal for this project is to create a web app that have the ability to predict Disaster base on the input message.
+![img](screen-shot/1657866887374.png)
+![img](screen-shot/1657866902448.png)
 The project divide in to 3 sections:
 - 1. ETL -- Extract data frome message and catgory file then transform them into on message file, by the end we load the file with SQL database (Please see ETL and ML Pipeline notebook folder for more detail)
 - 2. ML -- Extract data from SQL data base then use the data to build a machine learning classifcation model to predict disaster category (Please see ETL and ML Pipeline notebook folder for more detail)
