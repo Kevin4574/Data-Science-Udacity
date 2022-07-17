@@ -14,8 +14,6 @@ The project divide in to 3 sections:
 - 2. ML -- Extract data from SQL data base then use the data to build a machine learning classifcation model to predict disaster category (Please see ETL and ML Pipeline notebook folder for more detail)
 - 3. deploy the cleaned data and model with web app
 
-
-
 ## libraries used
 The library used projetc are: pandas, time , skearn, nltk, re, flask, joblib, etc
 
@@ -26,6 +24,21 @@ The library used projetc are: pandas, time , skearn, nltk, re, flask, joblib, et
 - re was use for find the url within text
 - flask was use for build a web app with python
 - joblib was use for save and load model
+
+### Instructions:
+1. Run the following commands in the project's root directory to set up your database and model.
+
+    - To run ETL pipeline that cleans data and stores in database
+        `python project/data//ETL_Cleaned.db`
+    - To run ML pipeline that trains classifier and saves
+        `python project/data/Best_Model`
+
+2. Run the following command in the app's directory to run your web app.
+    `python run.py`
+
+3. Go to http://0.0.0.0:3000/
+   Or Go to http://localhost:3000/
+
 
 
 
