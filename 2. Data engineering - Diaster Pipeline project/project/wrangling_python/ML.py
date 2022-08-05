@@ -25,10 +25,18 @@ from sklearn.metrics import *
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 
-path = r'D:\金融股票\git\Data-Science-Udacity\2. Data engineering - Diaster Pipeline project\project\data'
+path = r'data'
 
 # define a function to tokenize and clean the feature
 def tokenize(text):
+    '''clean text and return cleaned tokens
+
+    Args:
+        text: original input text
+
+    Returns:
+        tokens/words: cleaned token after remove URL and lemmatization
+    '''
     url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     detected_urls = re.findall(url_regex, text)
     for url in detected_urls:
@@ -46,7 +54,15 @@ def tokenize(text):
 
 # Build a custom transformer which will extract the starting verb of a sentence
 class toarray(BaseEstimator, TransformerMixin):
+    '''convert data to array
 
+    Args:
+        X: data
+
+    Returns:
+        output: array format data
+
+    '''
     # Given it is a tranformer we can return the self
     def fit(self, X, y=None):
         return self
@@ -55,7 +71,15 @@ class toarray(BaseEstimator, TransformerMixin):
         return pd.DataFrame(X.toarray())
 
 class length(BaseEstimator, TransformerMixin):
+    '''return the length of the data
 
+    Args:
+        X: data
+
+    Returns:
+        output: the length of the data
+
+    '''
     # Given it is a tranformer we can return the self
     def fit(self, X, y=None):
         return self
@@ -99,7 +123,7 @@ param4['classifier__estimator__class_weight'] = [None, {0:1,1:5}, {0:1,1:10}, {0
 # split to train and test
 feature_train, feature_test, label_train, label_test = train_test_split(feature,
                                                                         label,
-                                                                        test_size=0.4,
+                                                                        test_size=0.999,
                                                                         random_state=42)
 # gridsearch to output best model
 start = time.time()
@@ -108,3 +132,4 @@ print(f'time per train:{(time.time() - start)/3:.3f} second')
 
 # save the mode
 joblib.dump(cv, path + '\Best_Model')
+

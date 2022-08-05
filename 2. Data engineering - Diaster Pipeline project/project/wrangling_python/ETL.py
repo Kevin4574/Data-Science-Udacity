@@ -3,9 +3,7 @@ import pandas as pd
 import numpy as np
 from sqlalchemy import create_engine
 
-
-path = r'D:\金融股票\git\Data-Science-Udacity\2. Data engineering - Diaster Pipeline project\project\data'
-
+path = r'data'
 
 # load dataset
 messages = pd.read_csv(path + '\messages.csv')
@@ -37,3 +35,18 @@ df.to_sql('message',
           engine,
           index=False,
           if_exists='replace')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

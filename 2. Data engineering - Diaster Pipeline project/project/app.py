@@ -1,25 +1,34 @@
-import json
-import plotly
+from flask import Flask, render_template, url_for
+import os
 import pandas as pd
-import re
-
-from nltk.stem import WordNetLemmatizer
-from nltk.tokenize import word_tokenize
-
-from flask import Flask
-from flask import render_template, request, jsonify
-from plotly.graph_objs import Bar
-import joblib
+import plotly, json
+import plotly.graph_objs as go
 from sqlalchemy import create_engine
-
+import joblib
+import sqlite3
+from plotly.graph_objs import Bar
 from sklearn.base import BaseEstimator, TransformerMixin
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk import pos_tag, word_tokenize
+import re
+import nltk
+from flask import render_template, request, jsonify
 
-path = r'D:\金融股票\git\Data-Science-Udacity\2. Data engineering - Diaster Pipeline project\project\data'
+path = r'wrangling_python/data'
 
 app = Flask(__name__)
 
 # define a function to tokenize and clean the feature
 def tokenize(text):
+    '''clean text and return cleaned tokens
+
+    Args:
+        text: original input text
+
+    Returns:
+        tokens/words: cleaned token after remove URL and lemmatization
+    '''
     url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     detected_urls = re.findall(url_regex, text)
     for url in detected_urls:
@@ -35,10 +44,18 @@ def tokenize(text):
 
     return clean_tokens
 
+
 # Build a custom transformer which will extract the starting verb of a sentence
 class toarray(BaseEstimator, TransformerMixin):
+    '''convert data to array
 
-    # Given it is a tranformer we can return the self
+    Args:
+        X: data
+
+    Returns:
+        output: array format data
+
+    '''
     def fit(self, X, y=None):
         return self
 
@@ -46,21 +63,30 @@ class toarray(BaseEstimator, TransformerMixin):
         return pd.DataFrame(X.toarray())
 
 class length(BaseEstimator, TransformerMixin):
+    '''return the length of the data
 
-    # Given it is a tranformer we can return the self
+    Args:
+        X: data
+
+    Returns:
+        output: the length of the data
+
+    '''
     def fit(self, X, y=None):
         return self
 
     def transform(self, X):
 
         return pd.DataFrame([len(txt) for txt in X])
+
 # load data
 engine = create_engine('sqlite:///' + path + '\ETL_Cleaned.db')
-df = pd.read_sql_table('message', engine)
+df = pd.read_sql_table('message',engine)
 
 # load model
-model = joblib.load(path + '\Best_Model')
+model = joblib.load(path + "/Best_Model")
 
+# set up our applications
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
 @app.route('/index')
@@ -71,9 +97,14 @@ def index():
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
 
+    category_names = df.iloc[:,4:].columns
+    category_boolean = (df.iloc[:,4:] != 0).sum().values
+
+
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
+        # GRAPH 1 - genre graph
         {
             'data': [
                 Bar(
@@ -91,6 +122,26 @@ def index():
                     'title': "Genre"
                 }
             }
+        },
+        # GRAPH 2 - category graph
+        {
+            'data': [
+                Bar(
+                    x=category_names,
+                    y=category_boolean
+                )
+            ],
+
+            'layout': {
+                'title': 'Distribution of Message Categories',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "Category",
+                    'tickangle': 35
+                }
+            }
         }
     ]
 
@@ -101,12 +152,12 @@ def index():
     # render web page with plotly graphs
     return render_template('master.html', ids=ids, graphJSON=graphJSON)
 
-
 # web page that handles user query and displays model results
 @app.route('/go')
 def go():
     # save user input in query
     query = request.args.get('query', '')
+    print(query)
 
     # use model to predict classification for query
     classification_labels = model.predict([query])[0]
@@ -121,15 +172,8 @@ def go():
 
 
 def main():
-    app.run(host='0.0.0.0', port=3000, debug=True)
+    app.run(host='0.0.0.0', port=3001, debug=True)
 
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
