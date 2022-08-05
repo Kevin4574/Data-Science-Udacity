@@ -1,22 +1,44 @@
-# Data Science Udacity
-## Project Motivation
-Base on the CRISP-DM approach, the key for this notebook is to dig into the airbnb dataset and find out find out what element or matrixs effect the price of the listing accorss the two city, then maybe come out with some suggest for new host. We will dig into more detail by answer those 3 business question below:
+# Data Science Udacity - Disaster Response Pipeline
+## Contents
+- project
+- ETL and ML Pipeline notebook - contain two notebook with detailed approach for ETL and ML pipeline
+- screen-shot - contain screen shots used in README.md
+- README.md
 
-- 1. Investiagte into highest and lowest price tag of listing in two city
-- 2. what elements are most important for price
-- 3. Find the correlation between price and customer_satification
+## Project Summary
+#### The goal for this project is to create a web app that have the ability to predict Disaster base on the input message.
+![img](screen-shot/1657866887374.png)
+![img](screen-shot/1657866902448.png)
+The project divide in to 3 sections:
+- 1. ETL -- Extract data frome message and catgory file then transform them into on message file, by the end we load the file with SQL database (Please see ETL and ML Pipeline notebook folder for more detail)
+- 2. ML -- Extract data from SQL data base then use the data to build a machine learning classifcation model to predict disaster category (Please see ETL and ML Pipeline notebook folder for more detail)
+- 3. deploy the cleaned data and model with web app
 
 ## libraries used
-The library used projetc are: pandas, time , skearn, matplotlib.
+The library used projetc are: pandas, time , skearn, nltk, re, flask, joblib, etc
 
 - pandas was use to clean and manage data
 - time was use to calcuate amount of time use for the process to happen
 - sklearn was use for modeling data and find key elements 
-- matplotlib was use for final visualization purpose
+- nltk was use for tokenize text
+- re was use for find the url within text
+- flask was use for build a web app with python
+- joblib was use for save and load model
 
-## result for the project
-For a quick conclusion, as we dig into data we find that the the top importance elements contribute to a higher price tag are : 'room_type','bedrooms','beds','accommodates' and 'cleaning_fee'. This is easy to understand, bigger long more beds higher the price and more cleaning_fee. Beside this we also find that the customer satisfaction actually do not relate to higer price.
+### Instructions:
+1. Run the following commands in the project's root directory to set up your database and model.
 
-As a suggest for new host: if your want to sale for place for higher price tag, then try well manage your place and make full use of the space(for example: try managing and make the place bigger to fill more room or bed, but at the same time make less sacrifice on the experience), because this is the quick way to rise your property's price tag.
-For more detail about this project please visit my medium post at: https://medium.com/@yezehua1234/what-effect-your-price-tag-as-a-airbnb-host-49bfa3dff89e
+    - To run ETL pipeline that cleans data and stores in database
+        `python project/wrangling_python/ETL.py`
+    - To run ML pipeline that trains classifier and saves
+        `python project/wrangling_python/ML.py`
+
+2. Run the following command in the app's directory to run your web app.
+    `python run.py`
+
+3. Go to http://0.0.0.0:3000/
+   Or Go to http://localhost:3000/
+
+
+
 
