@@ -1,6 +1,6 @@
 # Data Science Udacity - Disaster Response Pipeline
 ## Introduction
-This project will show the predict of disaster category base on the your input text. 
+This project will show the predict of disaster category base on the your input text. People can use this web app to make the most suitable predict for their own situations.
 ## Contents
 - project
 - ETL and ML Pipeline notebook - contain two notebook with detailed approach for ETL and ML pipeline
