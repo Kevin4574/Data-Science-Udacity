@@ -38,9 +38,6 @@ def load_data(database_filepath):
     engine = create_engine('sqlite:///' + database_filepath)
     df = pd.read_sql_table('message',engine)
 
-    # replace all the 2 in related column with 1
-    df['related']=df['related'].map(lambda x: 1 if x == 2 else x)
-
     # define x and y variable
     feature = df['message']
     label =  df.iloc[:,4:]
