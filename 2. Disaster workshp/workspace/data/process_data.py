@@ -48,6 +48,9 @@ def clean_data(df):
     df = df.drop(columns = 'categories')
     # concatenate the original dataframe with the new `categories` dataframe
     df = pd.concat([df,categories],axis = 1)
+    
+    # replace only the related column
+    df['related'] = df['related'].astype('str').str.replace('2', '1')
 
     # replace all the 2 in related column with 1
     df['related']=df['related'].map(lambda x: 1 if x == 2 else x)

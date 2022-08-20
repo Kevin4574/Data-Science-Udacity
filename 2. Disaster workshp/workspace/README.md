@@ -48,9 +48,9 @@ The library used projetc are: pandas, time , skearn, nltk, re, flask, joblib, et
 1. Run the following commands in the project's root directory to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database
-        `python project/wrangling_python/ETL.py`
+        `python workspace/data/process_data.py`
     - To run ML pipeline that trains classifier and saves
-        `python project/wrangling_python/ML.py`
+        `python workspace/models/train_classifier.py`
 
 2. Run the following command in the app's directory to run your web app.
     `python run.py`
