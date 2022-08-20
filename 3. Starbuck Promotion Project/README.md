@@ -1,22 +1,51 @@
-# Data Science Udacity
-## Project Motivation
-Base on the CRISP-DM approach, the key for this notebook is to dig into the airbnb dataset and find out find out what element or matrixs effect the price of the listing accorss the two city, then maybe come out with some suggest for new host. We will dig into more detail by answer those 3 business question below:
+## Portfolio Exercise: Starbucks
+<br>
 
-- 1. Investiagte into highest and lowest price tag of listing in two city
-- 2. what elements are most important for price
-- 3. Find the correlation between price and customer_satification
+<img src="https://opj.ca/wp-content/uploads/2018/02/New-Starbucks-Logo-1200x969.jpg" width="200" height="200">
+<br>
+<br>
+ 
+#### Background Information
 
-## libraries used
-The library used projetc are: pandas, time , skearn, matplotlib.
+The dataset you will be provided in this portfolio exercise was originally used as a take-home assignment provided by Starbucks for their job candidates. The data for this exercise consists of about 120,000 data points split in a 2:1 ratio among training and test files. In the experiment simulated by the data, an advertising promotion was tested to see if it would bring more customers to purchase a specific product priced at $10. Since it costs the company 0.15 to send out each promotion, it would be best to limit that promotion only to those that are most receptive to the promotion. Each data point includes one column indicating whether or not an individual was sent a promotion for the product, and one column indicating whether or not that individual eventually purchased that product. Each individual also has seven additional features associated with them, which are provided abstractly as V1-V7.
 
-- pandas was use to clean and manage data
-- time was use to calcuate amount of time use for the process to happen
-- sklearn was use for modeling data and find key elements 
-- matplotlib was use for final visualization purpose
+#### Optimization Strategy
 
-## result for the project
-For a quick conclusion, as we dig into data we find that the the top importance elements contribute to a higher price tag are : 'room_type','bedrooms','beds','accommodates' and 'cleaning_fee'. This is easy to understand, bigger long more beds higher the price and more cleaning_fee. Beside this we also find that the customer satisfaction actually do not relate to higer price.
+Your task is to use the training data to understand what patterns in V1-V7 to indicate that a promotion should be provided to a user. Specifically, your goal is to maximize the following metrics:
 
-As a suggest for new host: if your want to sale for place for higher price tag, then try well manage your place and make full use of the space(for example: try managing and make the place bigger to fill more room or bed, but at the same time make less sacrifice on the experience), because this is the quick way to rise your property's price tag.
-For more detail about this project please visit my medium post at: https://medium.com/@yezehua1234/what-effect-your-price-tag-as-a-airbnb-host-49bfa3dff89e
+* **Incremental Response Rate (IRR)** 
 
+IRR depicts how many more customers purchased the product with the promotion, as compared to if they didn't receive the promotion. Mathematically, it's the ratio of the number of purchasers in the promotion group to the total number of customers in the purchasers group (_treatment_) minus the ratio of the number of purchasers in the non-promotional group to the total number of customers in the non-promotional group (_control_).
+
+$$ IRR = \frac{purch_{treat}}{cust_{treat}} - \frac{purch_{ctrl}}{cust_{ctrl}} $$
+
+
+* **Net Incremental Revenue (NIR)**
+
+NIR depicts how much is made (or lost) by sending out the promotion. Mathematically, this is 10 times the total number of purchasers that received the promotion minus 0.15 times the number of promotions sent out, minus 10 times the number of purchasers who were not given the promotion.
+
+$$ NIR = (10\cdot purch_{treat} - 0.15 \cdot cust_{treat}) - 10 \cdot purch_{ctrl}$$
+
+For a full description of what Starbucks provides to candidates see the [instructions available here](https://drive.google.com/open?id=18klca9Sef1Rs6q8DW4l7o349r8B70qXM).
+
+Below you can find the training data provided.  Explore the data and different optimization strategies.
+
+#### How To Test Your Strategy?
+
+When you feel like you have an optimization strategy, complete the `promotion_strategy` function to pass to the `test_results` function.  
+From past data, we know there are four possible outomes:
+
+Table of actual promotion vs. predicted promotion customers:  
+
+<table>
+<tr><th></th><th colspan = '2'>Actual</th></tr>
+<tr><th>Predicted</th><th>Yes</th><th>No</th></tr>
+<tr><th>Yes</th><td>I</td><td>II</td></tr>
+<tr><th>No</th><td>III</td><td>IV</td></tr>
+</table>
+
+The metrics are only being compared for the individuals we predict should obtain the promotion – that is, quadrants I and II.  Since the first set of individuals that receive the promotion (in the training set) receive it randomly, we can expect that quadrants I and II will have approximately equivalent participants.  
+
+Comparing quadrant I to II then gives an idea of how well your promotion strategy will work in the future. 
+
+Get started by reading in the data below.  See how each variable or combination of variables along with a promotion influences the chance of purchasing.  When you feel like you have a strategy for who should receive a promotion, test your strategy against the test dataset used in the final `test_results` function.
